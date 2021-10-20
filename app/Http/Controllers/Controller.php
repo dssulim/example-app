@@ -12,12 +12,14 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function getNews(): array{
+    public function getNews($categoryId, $categoryName): array{
         $faker = Factory::create();
         $data = [];
-        for($i = 1; $i < 10; $i++) {
+        for($i = 1; $i < 5; $i++) {
             $data[] = [
-                'id' => $i,
+                'id' => $categoryId . $i,
+                'categoryId' => $categoryId,
+                'categoryName' => $categoryName,
                 'title' => $faker->jobTitle(),
                 'author' => $faker->userName(),
                 'image' => null,
@@ -25,5 +27,20 @@ class Controller extends BaseController
             ];
         }
         return $data;
+    }
+
+    public function getCategoriesNews(): array{
+        $faker = Factory::create();
+        $categories = [];
+        for($i = 1; $i < 6; $i++){
+            $categoryName = $faker->colorName();
+            $categories[] = [
+                'id' => $i,
+                'name' => $categoryName,
+                'newsList' => $this->getNews($i, $categoryName)
+            ];
+        }
+        //dd($categories);
+        return $categories;
     }
 }
