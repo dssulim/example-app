@@ -10,11 +10,13 @@ class NewsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        return "Новости из админки";
+        return view('admin.news.index', [
+            'categoriesNews' => $this->getCategoriesNews()
+        ]);
     }
 
     /**
@@ -57,7 +59,7 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return "редактирование новости";
     }
 
     /**

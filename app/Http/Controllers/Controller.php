@@ -13,6 +13,7 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function getNews($categoryId, $categoryName): array{
+        //return [];
         $faker = Factory::create();
         $data = [];
         for($i = 1; $i < 5; $i++) {
@@ -30,6 +31,7 @@ class Controller extends BaseController
     }
 
     public function getCategoriesNews(): array{
+        //return [];
         $faker = Factory::create();
         $categories = [];
         for($i = 1; $i < 6; $i++){

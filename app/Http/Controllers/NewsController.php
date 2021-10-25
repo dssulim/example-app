@@ -28,11 +28,11 @@ class NewsController extends Controller
     }
 
     public function show(int $id){
-        $news = [];
+        $news=[];
         foreach ($this->getCategoriesNews() as $item){
             foreach ($item['newsList'] as $key=>$value){
                 if ($value['id'] == $id) {
-                    $news[] = $value;
+                    $news = $value;
                 }
             }//dump($news);
         }
