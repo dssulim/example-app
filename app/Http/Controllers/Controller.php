@@ -45,4 +45,16 @@ class Controller extends BaseController
         //dd($categories);
         return $categories;
     }
+
+    public function getDataFromJsonFileAsArray(string $filePath){
+        $dataFromFile = [];
+        if (file_exists(storage_path($filePath))){
+            $dataFromFile = json_decode(file_get_contents(storage_path($filePath)), true);
+        }
+//        if (is_null($feedback)) {
+//
+//        }
+        return $dataFromFile;
+    }
+
 }

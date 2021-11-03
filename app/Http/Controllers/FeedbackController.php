@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class NewsController extends Controller
+class FeedbackController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,19 +14,20 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return view('admin.news.index', [
-            'categoriesNews' => $this->getCategoriesNews()
+
+        return view('news.feedback', [
+            'feedbackList' => $this->getDataFromJsonFileAsArray('/app/feedbacks.json')
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('admin.news.create');
+        //
     }
 
     /**
@@ -35,12 +36,20 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): void
     {
+        $pathFile = '/app/feedbacks.json';
+        $feedback = $this->getDataFromJsonFileAsArray($pathFile);
         $request->validate([
-            'title' => ['required', 'string']
+            'username' => ['required', 'string'],
+            'description' => ['required', 'string']
         ]);
-        dd($request->all());
+        $username = $request->only('username')['username'];
+        $description = $request->only('description')['description'];
+        $feedback[$username] = $description;
+        //dd($feedback);
+        file_put_contents(storage_path($pathFile), json_encode($feedback));
+        header("Location: /news/feedback");
     }
 
     /**
@@ -62,7 +71,7 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        return "редактирование новости";
+        //
     }
 
     /**

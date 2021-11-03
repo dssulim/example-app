@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class NewsController extends Controller
+class NewsUploadController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,19 +13,17 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return view('admin.news.index', [
-            'categoriesNews' => $this->getCategoriesNews()
-        ]);
+        return view('news.upload', ['ordersUploadList' => $this->getDataFromJsonFileAsArray('/app/ordersUploadList.json')]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('admin.news.create');
+        //
     }
 
     /**
@@ -35,12 +32,30 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): void
     {
+        $pathFile = '/app/ordersUploadList.json';
+
+        $orderUpload = $this->getDataFromJsonFileAsArray($pathFile);
+
         $request->validate([
-            'title' => ['required', 'string']
+            'customername'  => ['required', 'string'],
+            'customerphone' => ['required', 'string'],
+            'customeremail' => ['required', 'string'],
+            'dataorder'     => ['required', 'string']
         ]);
-        dd($request->all());
+
+        $customername = $request->only('customername')['customername'];
+        $customerphone = $request->only('customerphone')['customerphone'];
+        $customeremail = $request->only('customeremail')['customeremail'];
+        $dataorder = $request->only('dataorder')['dataorder'];
+
+        $orderUpload[$customername] = ['customerphone'=>$customerphone, 'customeremail'=>$customeremail, 'dataorder'=>$dataorder];
+        file_put_contents(storage_path($pathFile), json_encode($orderUpload));
+//        dd($orderUpload);
+
+
+        header("Location: /news/upload");
     }
 
     /**
@@ -62,7 +77,7 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        return "редактирование новости";
+        //
     }
 
     /**

@@ -9,11 +9,14 @@
                 <div class="col-sm-4 offset-md-1 py-4">
 {{--                    <h4 class="text-white">Contact</h4>--}}
                     <ul class="list-unstyled">
-                        <li><a href="{{ route('authorization') }}" class="text-white">Вход</a></li>
-                        <li><a href="#" class="text-white">Регистрация</a></li>
                         <li><a href="/" class="text-white">Главная</a></li>
                         <li><a href="{{ route('news.index') }}" class="text-white">Все новости</a></li>
                         <li><a href="{{ route('news.categoryList') }}" class="text-white">Категории новостей</a></li>
+                        <li><a href="{{ route('admin.index') }}" class="text-white">Админка</a></li>
+                        <li><a href="{{ route('authorization') }}" class="text-white">Вход</a></li>
+                        <li><a href="#" class="text-white">Регистрация</a></li>
+                        <li><a href="{{ route('news.feedback.index') }}" class="text-white">Обратная связь</a></li>
+                        <li><a href="{{ route('news.upload.index') }}" class="text-white">Выгрузка новостей</a></li>
                     </ul>
                 </div>
             </div>

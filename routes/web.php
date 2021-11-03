@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\IndexController as AdminIndexController;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\NewsUploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,11 +38,19 @@ Route::get('/', function () {
 
 //группировка
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function (){
+    Route::get('/', AdminIndexController::class)->name('index');
     //подключим ресур контроллер
+    Route::resource('/categories', AdminCategoryController::class);
     Route::resource('/news', AdminNewsController::class);
 });
 
+Route::resource('/news/feedback', FeedbackController::class);
 
+Route::get('/news/feedback', [FeedbackController::class, 'index'])
+    ->name('news.feedback.index');
+
+Route::resource('/news/upload', NewsUploadController::class);
+Route::get('/news/upload', [NewsUploadController::class, 'index'])->name('news.upload.index');
 
 Route::get('/news', [NewsController::class, 'index']) //метод индекс в ньюсконтроллере
     ->name('news.index');
@@ -58,3 +70,4 @@ Route::get('/authorization', [NewsController::class, 'authorization'])
 
 Route::get('/news/add', [NewsController::class, 'addNews'])
     ->name('news.add');
+

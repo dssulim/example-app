@@ -1,4 +1,5 @@
 @extends('layouts.main')
+@section('title') Новости из категории - @parent @stop
 @section('content')
 
     <div class="col" style="width: 100%">

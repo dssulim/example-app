@@ -15,3 +15,5 @@ yarn-error.log
 /.vscode
 /lesson2.txt
 /lesson3.txt
+/lesson4.txt
+/public/file_for_download.txt
