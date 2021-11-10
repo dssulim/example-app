@@ -44,22 +44,27 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function (){
     Route::resource('/news', AdminNewsController::class);
 });
 
+
+Route::get('/news', [NewsController::class, 'index']) //метод индекс в ньюсконтроллере
+->name('news.index');
+
+Route::get('/news/{id}', [NewsController::class, 'show']) //метод шоу в ньюсконтроллере
+->where('id', '\d+') //где id это число (валидация, регулярка)
+->name('news.show');
+
+
 Route::resource('/news/feedback', FeedbackController::class);
 
 Route::get('/news/feedback', [FeedbackController::class, 'index'])
     ->name('news.feedback.index');
 
+
 Route::resource('/news/upload', NewsUploadController::class);
 Route::get('/news/upload', [NewsUploadController::class, 'index'])->name('news.upload.index');
 
-Route::get('/news', [NewsController::class, 'index']) //метод индекс в ньюсконтроллере
-    ->name('news.index');
-
-Route::get('/news/{id}', [NewsController::class, 'show']) //метод шоу в ньюсконтроллере
-    ->where('id', '\d+') //где id это число (валидация, регулярка)
-    ->name('news.show');
 
 Route::get('/news/category/{CategoryId}', [NewsController::class, 'FromCategory'])
+    ->where('CategoryId', '\d+')
     ->name('news.fromCategory');
 
 Route::get('news/category', [NewsController::class, 'categoriesList'])
