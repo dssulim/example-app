@@ -25,7 +25,19 @@
             </tr>
             </thead>
             <tbody>
-
+            @forelse($categoriesList as $key => $value)
+                <tr>
+                    <td>{{ $value->id }}</td>
+                    <td>{{ $value->title }}</td>
+                    <td>    </td>
+                    <td>{{ now()->format('d-m-Y H:i') }}</td>
+                    <td>    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5">Записей нет</td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
     </div>

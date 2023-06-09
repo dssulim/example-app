@@ -26,21 +26,19 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($categoriesNews as $item)
-                @forelse($item['newsList'] as $news)
+            @forelse($newsList as $key => $value)
                 <tr>
-                    <td>{{ $news['id'] }}</td>
-                    <td>{{ $news['title'] }}</td>
-                    <td>{{ $news['author'] }}</td>
+                    <td>{{ $value->id }}</td>
+                    <td>{{ $value->title }}</td>
+                    <td>{{ $value->author }}</td>
                     <td>{{ now()->format('d-m-Y H:i') }}</td>
-                    <td><a href="{{ route('news.show', ['id'=>$news['id']]) }}">view</a> | <a href="">edit</a> | <a href="javascript:;" style="color: red">del</a></td>
+                    <td><a href="{{ route('news.show', ['id'=>$value->id]) }}">view</a> | <a href="">edit</a> | <a href="javascript:;" style="color: red">del</a></td>
                 </tr>
                 @empty
                     <tr>
                         <td colspan="5">Записей нет</td>
                     </tr>
-                @endforelse
-            @endforeach
+            @endforelse
             </tbody>
         </table>
     </div>

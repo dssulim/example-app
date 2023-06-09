@@ -5,18 +5,22 @@
     <div class="col" style="width: 100%">
         <div class="card shadow-sm">
             <div class="card-body">
-                <h4>Новости из категории  {{ $categoryID }}.</h4>
-                @foreach ($newsList as $news)
-                    <div>
-                        <h5>
-                            <a href="{{ route('news.show', ['id'=>$news['id']]) }}">
-                                {{ $news['title'] }}
-                            </a>
-                        </h5>
-                        <p>Автор: {{ $news['author'] }}</p>
-                        <p>{{ $news['description'] }}</p>
-                    </div>
-                @endforeach
+                @isset($newsList[0]->NewsId)
+                    <h4>Новости из категории:  {{ $categoryTitle }}.</h4>
+                    @foreach($newsList as $item => $news)
+                        <div>
+                            <h5>
+                                <a href="{{ route('news.show', ['id'=>$news->NewsId]) }}">
+                                    {{ $news->NewsTitle }}
+                                </a>
+                            </h5>
+                            <p>Автор: {{ $news->NewsAuthor }}</p>
+                            <p>{{ $news->NewsDescription }}</p>
+                        </div>
+{{--                    @empty <h3>В категории <strong>"{{ $categoryTitle }}"</strong> пока нет новостей</h3>--}}
+                    @endforeach
+                @else <h3>В категории <strong>"{{ $categoryTitle }}"</strong> пока нет новостей</h3>
+                @endisset
             </div>
         </div>
     </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\News;
 
 class NewsController extends Controller
 {
@@ -14,8 +15,10 @@ class NewsController extends Controller
      */
     public function index()
     {
+        $news = new News(); //это модель News, которую мы создали app/Models/News.php
+//        dd($news->getNewsById(5));
         return view('admin.news.index', [
-            'categoriesNews' => $this->getCategoriesNews()
+            'newsList' => $news->getNews() //это метод, который мы описали в модели News
         ]);
     }
 

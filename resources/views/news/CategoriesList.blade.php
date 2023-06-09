@@ -3,9 +3,9 @@
 @section('content')
     <div class="col">
     <h4>Категории новостей:</h4>
-    @foreach ($categoriesList as $item)
-        <a href="{{ route('news.fromCategory', ['CategoryId'=>$item['id']]) }}">
-            {{ $item['name'] }}
+    @foreach ($categoriesList as $item => $category)
+        <a href="{{ route('news.fromCategory', ['CategoryId'=>$category->id]) }}">
+            {{ $category->title }}
         </a><br>
     @endforeach
     </div>

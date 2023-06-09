@@ -15,7 +15,21 @@ class CreateNewsTable extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->id();
+
             $table->timestamps();
+
+            //$table->foreignId('category_id')->references('id')->on('categories');
+            $table->foreignId('category_id')
+                ->constrained('categories', 'id')
+                ->onDelete('cascade');
+            $table->string('title', 255);
+            $table->string('author', 100)->default('Admin');
+            $table->enum('status', ['PUBLISHED', 'DRAFT', 'BLOCKED'])->default('PUBLISHED');
+            $table->text('description')->nullable();
+            $table->string('image', 191)->nullable();
+            $table->timestamps();
+            $table->index('status');
+
         });
     }
 
